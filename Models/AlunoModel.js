@@ -4,13 +4,15 @@ export default class AlunoModel extends StandardModel {
 
     #nome;
     #ra;
-    #imagem;
+    #imagem64;
+    #imagemFIle;
 
-    constructor(id = null, nome = "", ra = "", imagem = "") {
+    constructor(id = null, nome = "", ra = "", imagem64 = "", imagemFile = null) {
         super(id);
         this.#nome = nome;
         this.#ra = ra;
-        this.#imagem = imagem;
+        this.#imagem64 = imagem64;
+        this.#imagemFIle = imagemFile;
     }
 
     get nome() {
@@ -22,7 +24,7 @@ export default class AlunoModel extends StandardModel {
     }
 
     get imagem() {
-        return this.#imagem;
+        return this.#imagem64;
     }
 
     set nome(value) {
@@ -43,7 +45,7 @@ export default class AlunoModel extends StandardModel {
         this.#ra = value;
     }
 
-    set imagem(value) {
+    set imagem64(value) {
         
         if(!value || value.length < 1)
             throw new Error("Imagem é obrigatoria");
@@ -51,7 +53,14 @@ export default class AlunoModel extends StandardModel {
         if (typeof value === "string" && !value.startsWith("data:image/")) {
             throw new Error("Formato de imagem inválido (esperado Base64).");
         }
-        
-        this.#imagem = value;
+
+        this.#imagem64 = value;
+    }
+
+    set imagemFile(file) {
+        if(file && !(file instanceof Buffer)) {
+            throw new Error("Arquivo de imagem inválido");
+        }
+        this.#imagemFIle = file;
     }
 }
