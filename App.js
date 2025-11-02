@@ -12,6 +12,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator InitialRouteName="HomeScreen">
         <Stack.screen name="HomeScreen" component="HomeScreen"/>
+        <Stack.screen name="AlunoEditorScreen" component="AlunoEditorScreen"/>
+        <Stack.screen name="AlunoListScreen" component="AlunoListScreen"/>
       </Stack.Navigator>
     </NavigationContainer>
 
