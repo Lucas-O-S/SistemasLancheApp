@@ -1,23 +1,22 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import HomeScreen from './Screens/HomeScreen';
+import AlunoEditorScreen from './Screens/AlunoEditorScreen';
+import AlunoListScreen from './Screens/AlunoListScreen';
 
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-
   return (
     <NavigationContainer>
-      <Stack.Navigator InitialRouteName="HomeScreen">
-        <Stack.screen name="HomeScreen" component="HomeScreen"/>
-        <Stack.screen name="AlunoEditorScreen" component="AlunoEditorScreen"/>
-        <Stack.screen name="AlunoListScreen" component="AlunoListScreen"/>
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="AlunoEditorScreen" component={AlunoEditorScreen} />
+        <Stack.Screen name="AlunoListScreen" component={AlunoListScreen} />
       </Stack.Navigator>
+      <StatusBar style="auto" />
     </NavigationContainer>
-
-
-  )
+  );
 }
-

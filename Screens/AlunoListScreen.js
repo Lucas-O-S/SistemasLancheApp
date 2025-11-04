@@ -1,22 +1,22 @@
-import { TouchableOpacity } from "react-native";
-import { View } from "react-native/types_generated/index";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
+export default function AlunoListScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#007bff",
+          padding: 10,
+          borderRadius: 8,
+          marginBottom: 20,
+        }}
+        onPress={() => navigation.navigate("AlunoEditorScreen")}
+      >
+        <Text style={{ color: "white", fontSize: 18 }}>Cadastrar Aluno</Text>
+      </TouchableOpacity>
 
-
-export default function AlunoListScreen({navigation}) {
-
-
-    return (
-        <View>
-            <TouchableOpacity onPress={navigation.navigate("AlunoEditorScreen")}>
-                <Text>Cadastrar Aluno</Text>
-            </TouchableOpacity>
-            <Text>Alunos Cadastrados</Text>
-
-
-
-        </View>
-    );
-
-
+      <Text style={{ fontSize: 20 }}>Alunos Cadastrados</Text>
+    </View>
+  );
 }

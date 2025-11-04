@@ -5,7 +5,7 @@ export default class StandardModel{
     #id;
 
     constructor(id = null) {
-        this.id = id;
+        this.#id = id;
     }
 
     get id(){

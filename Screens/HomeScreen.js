@@ -1,26 +1,21 @@
-import { TouchableOpacity } from "react-native";
-import { View } from "react-native/types_generated/index";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
+export default function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ fontSize: 24, marginBottom: 20 }}>Home Screen</Text>
 
-export default function HomeScreen ({navigation}) {
-
-
-    return (
-
-        <View>
-
-            <Text>Home Screen</Text>
-            
-            <View>
-                <TouchableOpacity onPress={navigation.navigate("AlunoListScreen") }>
-                    <Text>Alunos</Text>
-                </TouchableOpacity>
-            </View>
-        
-        </View>
-
-
-
-
-    );
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#007bff",
+          padding: 10,
+          borderRadius: 8,
+        }}
+        onPress={() => navigation.navigate("AlunoListScreen")}
+      >
+        <Text style={{ color: "white", fontSize: 18 }}>Alunos</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }

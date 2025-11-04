@@ -1,10 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
+import { View, Text } from "react-native";
 import { TextInput } from "react-native-paper";
+
 import AlunoModel from "../Models/AlunoModel";
 
 
-export function AlunoEditorScreen({navigation, route}){
+export default function AlunoEditorScreen({navigation, route}){
 
     const [id, setId] = useState(null);
     const [nome, setNome] = useState("");
@@ -20,7 +22,7 @@ export function AlunoEditorScreen({navigation, route}){
                 setNome(alunoModel.nome);
                 setRa(alunoModel.ra);
             }
-        }, [alunoModel])
+        },[])
     )
 
 
@@ -29,11 +31,59 @@ export function AlunoEditorScreen({navigation, route}){
     return (
 
         <View>
+
+
+        {/*
+            <TouchableOpacity style={styles.imageBox} >
+                {imageUri ? (
+                <Image style={styles.image} />
+                ) : (
+                <Text style={styles.placeholderText}>Toque para selecionar imagem</Text>
+                )}
+            </TouchableOpacity>
+        */}
+
             <Text>Nome</Text>
-            <TextInput />
+            <TextInput 
+                value={nome}
+                onChangeText={setNome}
+                placeholder="Nome do Aluno"
+            />
+            <Text>RA</Text>
+            <TextInput 
+                value={nome}
+                onChangeText={setNome}
+                placeholder="RA do Aluno"
+            />
 
         </View>
 
     )
 
 }
+
+
+/*
+const styles = StyleSheet.create({
+  imageBox: {
+    width: "100%",
+    height: 200,
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
+    overflow: "hidden",
+    marginBottom: 20,
+  },
+  placeholderText: {
+    color: "#999",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+});
+*/
