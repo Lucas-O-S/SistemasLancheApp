@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text , StyleSheet, TouchableOpacity, Image} from "react-native";
 import { TextInput } from "react-native-paper";
 
 import AlunoModel from "../Models/AlunoModel";
@@ -12,6 +12,7 @@ export default function AlunoEditorScreen({navigation, route}){
     const [nome, setNome] = useState("");
     const [ra, setRa] = useState("");
     const [foto, setFoto] = useState(null);
+    const [imageUri, setImageUri] = useState(null);
 
     let alunoModel =  route.params?.aluno ?? new AlunoModel();
     
@@ -33,7 +34,7 @@ export default function AlunoEditorScreen({navigation, route}){
         <View>
 
 
-        {/*
+        
             <TouchableOpacity style={styles.imageBox} >
                 {imageUri ? (
                 <Image style={styles.image} />
@@ -41,7 +42,7 @@ export default function AlunoEditorScreen({navigation, route}){
                 <Text style={styles.placeholderText}>Toque para selecionar imagem</Text>
                 )}
             </TouchableOpacity>
-        */}
+        
 
             <Text>Nome</Text>
             <TextInput 
@@ -63,7 +64,7 @@ export default function AlunoEditorScreen({navigation, route}){
 }
 
 
-/*
+
 const styles = StyleSheet.create({
   imageBox: {
     width: "100%",
@@ -86,4 +87,3 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
 });
-*/
