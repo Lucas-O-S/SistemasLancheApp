@@ -26,6 +26,24 @@ export default function AlunoEditorScreen({navigation, route}){
         },[])
     )
 
+    async function saveAluno () {
+
+        alunoModel.nome = nome;
+        alunoModel.ra = ra;
+        alunoModel.foto = foto;
+        
+        try{
+            
+            
+        }
+        catch(Error){
+            Alert.Alert("Erro ao salvar " + Error.message);
+        }
+        
+    }
+
+
+
 
 
 
@@ -56,6 +74,10 @@ export default function AlunoEditorScreen({navigation, route}){
                 onChangeText={setNome}
                 placeholder="RA do Aluno"
             />
+
+            <TouchableOpacity onPress={() => saveAluno()}>
+                <Text>Salvar</Text>
+            </TouchableOpacity>
 
         </View>
 
