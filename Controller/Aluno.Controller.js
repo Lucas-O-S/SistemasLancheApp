@@ -6,11 +6,21 @@ export default class AlunoController {
     
 
     static async saveAluno(alunoModel){
-        if(alunoModel.id){
-            AlunoService.update(alunoModel, alunoModel.id);
-        }        
-        else{
-            AlunoService.create(alunoModel);
+        try{
+            let result;
+            
+            if(alunoModel.id){
+                result = await AlunoService.update(alunoModel, alunoModel.id);
+            }        
+            else{
+                result = await AlunoService.create(alunoModel);
+            }
+
+            console.log("resultado = " + result);
+
+        }
+        catch(Error){
+            throw Error; 
         }
     }
 

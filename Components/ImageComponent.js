@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Image, Text, Alert, StyleSheet, View } from "react-native";
-import ImageHelper from "../Utils/ImageHelper";
+import ImageHelper from "../utils/ImageHelper";
 
 export default function ImageComponent({ value, onChange }) {
  

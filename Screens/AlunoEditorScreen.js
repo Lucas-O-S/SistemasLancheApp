@@ -6,10 +6,10 @@ import { Alert } from "react-native";
 import InputTexComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
 import ButtonComponent from "../Components/ButtonComponent";
-
+import ImageHelper from "../utils/ImageHelper";
 
 import AlunoModel from "../Models/AlunoModel";
-import ImageHelper from "../Utils/ImageHelper";
+import AlunoController from "../Controller/Aluno.Controller";
 
 
 export default function AlunoEditorScreen({navigation, route}){
@@ -36,11 +36,14 @@ export default function AlunoEditorScreen({navigation, route}){
 
             alunoModel.nome = nome;
             alunoModel.ra = ra;
-            alunoModel.image64 = await ImageHelper.convertUriToForm(imageUri);
+            alunoModel.imagem = await ImageHelper.convertUriToForm(imageUri);
 
             console.log("Aluno model para salvar:", JSON.stringify(alunoModel));
+            
+            AlunoController.saveAluno(alunoModel);
 
             Alert.alert("Sucesso", "Aluno salvo com sucesso!");
+
 
             navigation.goBack();
         } catch (error) {
