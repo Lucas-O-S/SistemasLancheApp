@@ -2,9 +2,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { View, Text , StyleSheet, TouchableOpacity, Image} from "react-native";
 import { TextInput } from "react-native-paper";
+import { Alert } from "react-native";
+
 
 import AlunoModel from "../Models/AlunoModel";
-import ImageHelper from "../utils/ImageHelper";
+import ImageHelper from "../Utils/ImageHelper";
 
 
 export default function AlunoEditorScreen({navigation, route}){
@@ -14,7 +16,7 @@ export default function AlunoEditorScreen({navigation, route}){
     const [ra, setRa] = useState("");
     const [foto, setFoto] = useState(null);
     const [imageUri, setImageUri] = useState(null);
-    const [image64, setImage64] = useState(null);
+    const [image64, setImagem64] = useState(null);
 
     let alunoModel =  route.params?.aluno ?? new AlunoModel();
     
@@ -45,21 +47,26 @@ export default function AlunoEditorScreen({navigation, route}){
     }
 
     async function setImage() {
-        
-        const uriResult = await ImageHelper.getImageFromLibrary();
-        
-        console.log(uriResult);
-        
-        if(uriResult != null){
+        try{
+            const uriResult = await ImageHelper.getImageFromLibrary();
+                    
+            console.log(uriResult);
             
-            setImageUri(uriResult);
-            
-            alunoModel.imagem64 = await ImageHelper.convertUriToString(uriResult);
-            
-            console.log("Entrou no uri to string");
-            setImage64(alunoModel.imagem64);
-            console.log("imagem64: " + alunoModel.image64);
-        } 
+            alunoModel.imagemFile = ImageHelper.convertUriToForm(uriResult);
+            if(uriResult){
+                console.log("Passou no if uriResulti");
+
+                setImageUri(uriResult);
+                
+                setImagem64(await ImageHelper.convertUriToBase64(uriResult));
+
+            } 
+        }
+        catch(error){
+            console.log("Erro ao selecionar imagem: " + error.message);
+            Alert.alert("Erro ao selecionar imagem: " + error.message);
+        }
+        
 
 
     }
@@ -73,14 +80,15 @@ export default function AlunoEditorScreen({navigation, route}){
 
         <View>
 
-
         
             <TouchableOpacity style={styles.imageBox} onPress={async () => await setImage()} >
-                {imageUri ? (
-                <Image style={styles.image} />
-                ) : (
-                <Text style={styles.placeholderText}>Toque para selecionar imagem</Text>
-                )}
+                {image64 ? (
+                        <Image style={styles.image} source={{ uri: image64 }} />
+                    ) : (
+                    
+                        <Text style={styles.placeholderText}>Toque para selecionar imagem</Text>
+                    )
+                }
             </TouchableOpacity>
         
 
@@ -93,7 +101,7 @@ export default function AlunoEditorScreen({navigation, route}){
             <Text>RA</Text>
             <TextInput 
                 value={ra}
-                onChangeText={setNome}
+                onChangeText={setRa}
                 placeholder="RA do Aluno"
             />
 

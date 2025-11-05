@@ -62,7 +62,7 @@ export default class AlunoModel extends StandardModel {
     }
 
     set imagemFile(file) {
-        if(file && !(file instanceof Buffer)) {
+        if(!file) {
             throw new Error("Arquivo de imagem inválido");
         }
         this.#imagemFile = file;

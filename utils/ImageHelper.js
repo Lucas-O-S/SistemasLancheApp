@@ -1,5 +1,8 @@
 // utils/ImageHelper.js
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from "expo-file-system/legacy";
+import { File } from "expo-file-system";
+
 
 export default class ImageHelper {
   static async getImageFromLibrary() {
@@ -26,7 +29,7 @@ export default class ImageHelper {
     webp: 'image/webp'
   };
 
-  static convertUriToString(uri){
+  static convertUriToForm(uri){
    
     const filename = uri.split('/').pop();
     const extension = filename.split('.').pop().toLowerCase();
@@ -41,15 +44,22 @@ export default class ImageHelper {
     const formData = new FormData();
     formData.append('file', file);
 
-    console.log("resultado em file" + JSON.stringify(formData));
+    console.log("resultado em file: " + JSON.stringify(formData));
 
     return formData;
   }
 
-  static async convertUriToString(uri){
-    return await FileSystem.readAsStringAsync(uri, {
-      encoding: FileSystem.EncodingType.Base64,
+  static async convertUriToBase64(uri){
+
+    const base64 = await FileSystem.readAsStringAsync(uri, {
+      encoding: "base64",
     });
+    return `data:image/jpeg;base64,${base64}`;
+  }
+
+  static async convertFileToBase64(file){
+    
+    return await file.text();
   }
 
 
