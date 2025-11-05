@@ -33,7 +33,7 @@ export default class AlunoModel extends StandardModel {
 
     set nome(value) {
 
-        if(!value || value.length() < 1) {
+        if(!value || value.length < 1) {
             throw new Error("Nome esta vazio");
         }
 
@@ -42,7 +42,7 @@ export default class AlunoModel extends StandardModel {
 
     set ra(value) {
 
-        if(!value || value.length() < 1) {
+        if(!value || value.length < 1) {
             throw new Error("RA esta vazio");
         }
         

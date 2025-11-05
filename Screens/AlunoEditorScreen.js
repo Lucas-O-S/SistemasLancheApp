@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import { View, Text , StyleSheet, TouchableOpacity, Image} from "react-native";
 import { TextInput } from "react-native-paper";
 import { Alert } from "react-native";
+import InputTexComponent from "../Components/InputTextComponent";
+import ImageComponent from "../Components/ImageComponent";
 
 
 import AlunoModel from "../Models/AlunoModel";
@@ -29,45 +31,35 @@ export default function AlunoEditorScreen({navigation, route}){
             }
         },[])
     )
+    async function saveAluno() {        
+        try {
 
-    async function saveAluno () {
+            alunoModel.nome = nome;
+            alunoModel.ra = ra;
+            alunoModel.image64 = await ImageHelper.convertUriToForm(imageUri);
 
-        alunoModel.nome = nome;
-        alunoModel.ra = ra;
-        alunoModel.foto = foto;
-        
-        try{
-            
-            
+            console.log("Aluno model para salvar:", JSON.stringify(alunoModel));
+
+            Alert.alert("Sucesso", "Aluno salvo com sucesso!");
+
+            navigation.goBack();
+        } catch (error) {
+            console.log("Erro ao salvar aluno:", error);
+            Alert.alert("Erro", "Erro ao salvar aluno: " + error.message);
         }
-        catch(Error){
-            Alert.Alert("Erro ao salvar " + Error.message);
-        }
-        
     }
 
-    async function setImage() {
+    async function setImage(img) {
         try{
-            const uriResult = await ImageHelper.getImageFromLibrary();
-                    
-            console.log(uriResult);
             
-            alunoModel.imagemFile = ImageHelper.convertUriToForm(uriResult);
-            if(uriResult){
-                console.log("Passou no if uriResulti");
+            setImageUri(img.uri);
+            setImagem64(img.base64)                    
 
-                setImageUri(uriResult);
-                
-                setImagem64(await ImageHelper.convertUriToBase64(uriResult));
-
-            } 
         }
         catch(error){
             console.log("Erro ao selecionar imagem: " + error.message);
             Alert.alert("Erro ao selecionar imagem: " + error.message);
         }
-        
-
 
     }
 
@@ -79,35 +71,29 @@ export default function AlunoEditorScreen({navigation, route}){
     return (
 
         <View>
-
-        
-            <TouchableOpacity style={styles.imageBox} onPress={async () => await setImage()} >
-                {image64 ? (
-                        <Image style={styles.image} source={{ uri: image64 }} />
-                    ) : (
-                    
-                        <Text style={styles.placeholderText}>Toque para selecionar imagem</Text>
-                    )
-                }
-            </TouchableOpacity>
+            <ImageComponent
+                value={imageUri}
+                onChange={(img) => setImage(img)}
+            />
         
 
-            <Text>Nome</Text>
-            <TextInput 
+            <InputTexComponent
+                label="Nome"
                 value={nome}
                 onChangeText={setNome}
-                placeholder="Nome do Aluno"
-            />
-            <Text>RA</Text>
-            <TextInput 
-                value={ra}
-                onChangeText={setRa}
-                placeholder="RA do Aluno"
+                placeholder="Nome do aluno"
             />
 
-            <TouchableOpacity onPress={() => saveAluno()}>
-                <Text>Salvar</Text>
-            </TouchableOpacity>
+            <InputTexComponent
+                label="RA"
+                value={ra}
+                onChangeText={setRa}
+                placeholder="Registro do aluno"
+                keyboardType="numeric"
+            />
+
+            <ButtonComponent label="Salvar" pressFunction={saveAluno} />
+
 
         </View>
 
@@ -116,26 +102,3 @@ export default function AlunoEditorScreen({navigation, route}){
 }
 
 
-
-const styles = StyleSheet.create({
-  imageBox: {
-    width: "100%",
-    height: 200,
-    borderWidth: 1,
-    borderColor: "#999",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f0f0f0",
-    overflow: "hidden",
-    marginBottom: 20,
-  },
-  placeholderText: {
-    color: "#999",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-});
