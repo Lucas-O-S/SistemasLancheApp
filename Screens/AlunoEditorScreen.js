@@ -4,6 +4,7 @@ import { View, Text , StyleSheet, TouchableOpacity, Image} from "react-native";
 import { TextInput } from "react-native-paper";
 
 import AlunoModel from "../Models/AlunoModel";
+import ImageHelper from "../utils/ImageHelper";
 
 
 export default function AlunoEditorScreen({navigation, route}){
@@ -13,6 +14,7 @@ export default function AlunoEditorScreen({navigation, route}){
     const [ra, setRa] = useState("");
     const [foto, setFoto] = useState(null);
     const [imageUri, setImageUri] = useState(null);
+    const [image64, setImage64] = useState(null);
 
     let alunoModel =  route.params?.aluno ?? new AlunoModel();
     
@@ -42,6 +44,26 @@ export default function AlunoEditorScreen({navigation, route}){
         
     }
 
+    async function setImage() {
+        
+        const uriResult = await ImageHelper.getImageFromLibrary();
+        
+        console.log(uriResult);
+        
+        if(uriResult != null){
+            
+            setImageUri(uriResult);
+            
+            alunoModel.imagem64 = await ImageHelper.convertUriToString(uriResult);
+            
+            console.log("Entrou no uri to string");
+            setImage64(alunoModel.imagem64);
+            console.log("imagem64: " + alunoModel.image64);
+        } 
+
+
+    }
+
 
 
 
@@ -53,7 +75,7 @@ export default function AlunoEditorScreen({navigation, route}){
 
 
         
-            <TouchableOpacity style={styles.imageBox} >
+            <TouchableOpacity style={styles.imageBox} onPress={async () => await setImage()} >
                 {imageUri ? (
                 <Image style={styles.image} />
                 ) : (
@@ -70,7 +92,7 @@ export default function AlunoEditorScreen({navigation, route}){
             />
             <Text>RA</Text>
             <TextInput 
-                value={nome}
+                value={ra}
                 onChangeText={setNome}
                 placeholder="RA do Aluno"
             />

@@ -5,14 +5,14 @@ export default class AlunoModel extends StandardModel {
     #nome;
     #ra;
     #imagem64;
-    #imagemFIle;
+    #imagemFile;
 
     constructor(id = null, nome = "", ra = "", imagem64 = "", imagemFile = null) {
         super(id);
         this.#nome = nome;
         this.#ra = ra;
         this.#imagem64 = imagem64;
-        this.#imagemFIle = imagemFile;
+        this.#imagemFile = imagemFile;
     }
 
     get nome() {
@@ -23,8 +23,12 @@ export default class AlunoModel extends StandardModel {
         return this.#ra;
     }
 
-    get imagem() {
+    get imagem64() {
         return this.#imagem64;
+    }
+
+    get imagemFile() {
+        return this.#imagemFile;
     }
 
     set nome(value) {
@@ -61,6 +65,6 @@ export default class AlunoModel extends StandardModel {
         if(file && !(file instanceof Buffer)) {
             throw new Error("Arquivo de imagem inválido");
         }
-        this.#imagemFIle = file;
+        this.#imagemFile = file;
     }
 }
