@@ -1,20 +1,16 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import ButtonComponent from "../Components/ButtonComponent";
 
 export default function AlunoListScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#007bff",
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 20,
-        }}
-        onPress={() => navigation.navigate("AlunoEditorScreen")}
-      >
-        <Text style={{ color: "white", fontSize: 18 }}>Cadastrar Aluno</Text>
-      </TouchableOpacity>
+ 
+
+      <ButtonComponent
+        label="Criar Aluno"
+        pressFunction={() => navigation.navigate("AlunoEditorScreen")}
+      />      
 
       <Text style={{ fontSize: 20 }}>Alunos Cadastrados</Text>
     </View>

@@ -5,6 +5,7 @@ import { TextInput } from "react-native-paper";
 import { Alert } from "react-native";
 import InputTexComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
+import ButtonComponent from "../Components/ButtonComponent";
 
 
 import AlunoModel from "../Models/AlunoModel";
@@ -16,7 +17,6 @@ export default function AlunoEditorScreen({navigation, route}){
     const [id, setId] = useState(null);
     const [nome, setNome] = useState("");
     const [ra, setRa] = useState("");
-    const [foto, setFoto] = useState(null);
     const [imageUri, setImageUri] = useState(null);
     const [image64, setImagem64] = useState(null);
 
