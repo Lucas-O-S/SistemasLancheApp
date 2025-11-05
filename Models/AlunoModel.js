@@ -27,7 +27,7 @@ export default class AlunoModel extends StandardModel {
         return this.#imagem64;
     }
 
-    get imagem() {
+    get imagemFile() {
         return this.#imagemFile;
     }
 
@@ -61,7 +61,7 @@ export default class AlunoModel extends StandardModel {
         this.#imagem64 = value;
     }
 
-    set imagem(file) {
+    set imagemFile(file) {
         if(!file) {
             throw new Error("Arquivo de imagem inválido");
         }

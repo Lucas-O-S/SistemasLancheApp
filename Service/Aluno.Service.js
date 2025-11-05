@@ -10,12 +10,9 @@ export class AlunoService {
         //update
     }
 
-    static async create(alunoModel){
+    static async create(alunoWrapper){
         
-        const body = JSON.stringify(alunoModel);
-        
-        console.log("Body da Requesição: " + body);
-
+    
         const headers = {
             ...multipartHeader
         };
@@ -25,7 +22,7 @@ export class AlunoService {
         return await ExecuteHttpRequest.callout(
             "alunos",
             "POST",
-            body,
+            alunoWrapper,
             {},
             headers 
         );

@@ -29,7 +29,7 @@ export default class ImageHelper {
     webp: 'image/webp'
   };
 
-  static convertUriToForm(uri){
+  static convertUriToFile(uri){
    
     const filename = uri.split('/').pop();
     const extension = filename.split('.').pop().toLowerCase();

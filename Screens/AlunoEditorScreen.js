@@ -36,9 +36,7 @@ export default function AlunoEditorScreen({navigation, route}){
 
             alunoModel.nome = nome;
             alunoModel.ra = ra;
-            alunoModel.imagem = await ImageHelper.convertUriToForm(imageUri);
-
-            console.log("Aluno model para salvar:", JSON.stringify(alunoModel));
+            alunoModel.imagemFile = await ImageHelper.convertUriToFile(imageUri);
             
             AlunoController.saveAluno(alunoModel);
 
@@ -47,7 +45,7 @@ export default function AlunoEditorScreen({navigation, route}){
 
             navigation.goBack();
         } catch (error) {
-            console.log("Erro ao salvar aluno:", error);
+            console.log("Erro ao salvar aluno:", error.message);
             Alert.alert("Erro", "Erro ao salvar aluno: " + error.message);
         }
     }
