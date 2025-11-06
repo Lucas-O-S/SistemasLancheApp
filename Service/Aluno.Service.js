@@ -19,13 +19,22 @@ export class AlunoService {
 
         const method = "POST"
 
-        return await ExecuteHttpRequest.callout(
+        const result = await ExecuteHttpRequest.callout(
             "/aluno",
             "POST",
             alunoWrapper,
             {},
             headers 
         );
+        
+        console.log("REsulado" + JSON.stringify(result));
+        const resultBody = result.data;
+        if(result.status != "201"){
+            throw new Error(resultBody.message);
+            
+        }
+
+        return result;
 
     }
 

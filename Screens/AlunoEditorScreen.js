@@ -38,7 +38,7 @@ export default function AlunoEditorScreen({navigation, route}){
             alunoModel.ra = ra;
             alunoModel.imagemFile = await ImageHelper.convertUriToFile(imageUri);
             
-            AlunoController.saveAluno(alunoModel);
+            await AlunoController.saveAluno(alunoModel);
 
             Alert.alert("Sucesso", "Aluno salvo com sucesso!");
 

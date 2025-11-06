@@ -23,12 +23,12 @@ export default class AlunoController {
                 result = await AlunoService.create(request);
             }
 
-            console.log("resultado = " + result);
 
         }
-        catch(Error){
-            console.log("Erro ao salvar aluno:", Error.message);
-            throw Error.message; 
+        catch(error){
+            console.log("Erro ao salvar aluno no controler:", error.message);
+            throw new Error(error.message);
+             
         }
     }
 

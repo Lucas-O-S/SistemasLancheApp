@@ -36,7 +36,12 @@ export class ExecuteHttpRequest{
 
         } 
         catch (error) {
-            console.log("Error has happened" +error)
+            const status = error.response?.status;
+            const data = error.response?.data;
+
+            console.log("Erro na requisição:", status, data);
+
+            return error.response;
         }
 
     }
