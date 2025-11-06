@@ -13,7 +13,6 @@ export default class AlunoController {
             console.log("nome do aluno: " + alunoModel.nome)
 
             const request = AlunoWrapper(alunoModel);
-            console.log("passou request");
 
             console.log(request);
             

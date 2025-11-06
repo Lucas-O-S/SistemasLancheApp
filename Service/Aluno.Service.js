@@ -1,5 +1,5 @@
-import { ExecuteHttpRequest } from "../utils/ExecuteHttpRequest";
-import { multipartHeader } from "../utils/HeaderHelper";
+import { ExecuteHttpRequest } from "../Utils/ExecuteHttpRequest";
+import { multipartHeader } from "../Utils/HeaderHelper";
 
 
 export class AlunoService {
@@ -11,13 +11,13 @@ export class AlunoService {
     }
 
     static async create(alunoWrapper){
-        
+        console.log("entrou em create")
     
         const headers = {
             ...multipartHeader
         };
 
-        method = "POST"
+        const method = "POST"
 
         return await ExecuteHttpRequest.callout(
             "alunos",

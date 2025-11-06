@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import InputTexComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
 import ButtonComponent from "../Components/ButtonComponent";
-import ImageHelper from "../utils/ImageHelper";
+import ImageHelper from "../Utils/ImageHelper";
 
 import AlunoModel from "../Models/AlunoModel";
 import AlunoController from "../Controller/Aluno.Controller";

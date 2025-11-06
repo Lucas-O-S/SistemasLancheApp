@@ -1,4 +1,4 @@
-// utils/ImageHelper.js
+// Utils/ImageHelper.js
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from "expo-file-system/legacy";
 import { File } from "expo-file-system";
@@ -35,18 +35,12 @@ export default class ImageHelper {
     const extension = filename.split('.').pop().toLowerCase();
     const type  = ImageHelper.mimeTypes[extension];
     
-    const file = {
+    return {
       uri: uri,
       name: filename,
       type: type
     };
 
-    const formData = new FormData();
-    formData.append('file', file);
-
-    console.log("resultado em file: " + JSON.stringify(formData));
-
-    return formData;
   }
 
   static async convertUriToBase64(uri){
