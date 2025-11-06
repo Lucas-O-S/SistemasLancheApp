@@ -20,7 +20,7 @@ export class AlunoService {
         const method = "POST"
 
         return await ExecuteHttpRequest.callout(
-            "alunos",
+            "/aluno",
             "POST",
             alunoWrapper,
             {},

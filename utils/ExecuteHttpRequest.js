@@ -1,13 +1,15 @@
 import axios from "axios";
+import { API_URL } from '@env';
 
 export class ExecuteHttpRequest{
 
-    static #baseUrl = "http://localhost:3000/";
+    static #baseUrl = "http://:3000";
 
     static async callout(url = "", method = "GET", body = null, param = {}, headers = {}) {
         try {
 
             const requestUrl = this.#baseUrl + url;
+            console.log(requestUrl);
             
             const functionType = this.requestType[method.toUpperCase()];
 
