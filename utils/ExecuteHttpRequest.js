@@ -4,7 +4,7 @@ export class ExecuteHttpRequest{
 
     static #baseUrl = "http://localhost:3000/";
 
-    static async callout(url = "", method = "GET", body = "", param = {}, headers = {}) {
+    static async callout(url = "", method = "GET", body = null, param = {}, headers = {}) {
         try {
 
             const requestUrl = this.#baseUrl + url;
@@ -23,7 +23,7 @@ export class ExecuteHttpRequest{
 
             else{
                 return await functionType(requestUrl, body, {
-                    param : param,
+                    params : param,
                     headers : headers,
                     timeout : 10000,
                     responseType : 'json'
