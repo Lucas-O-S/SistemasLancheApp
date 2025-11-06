@@ -17,8 +17,6 @@ export class AlunoService {
             ...multipartHeader
         };
 
-        const method = "POST"
-
         const result = await ExecuteHttpRequest.callout(
             "/aluno",
             "POST",
@@ -27,14 +25,36 @@ export class AlunoService {
             headers 
         );
         
-        console.log("REsulado" + JSON.stringify(result));
-        const resultBody = result.data;
+        const resultBody = result.data; //acessa o body do resultado
         if(result.status != "201"){
             throw new Error(resultBody.message);
             
         }
 
         return result;
+
+    }
+
+    static async findAll(){
+        console.log("Entrou em find All");
+
+        const result = await ExecuteHttpRequest.callout(
+            "/aluno",
+            "GET",
+            {},
+            {},
+            {}
+        );
+
+                
+        const resultBody = result.data; //acessa o body do resultado
+        if(result.status != "200"){
+            throw new Error(resultBody.message);
+            
+        }
+
+        return result;
+            
 
     }
 

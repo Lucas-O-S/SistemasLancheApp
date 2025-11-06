@@ -30,6 +30,17 @@ export default class AlunoController {
             throw new Error(error.message);
              
         }
+
+    }
+
+    static async findAll(){
+        try{
+
+        }
+        catch(Erro)
+        {
+
+        }
     }
 
     

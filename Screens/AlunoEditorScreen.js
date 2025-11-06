@@ -1,12 +1,13 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { View, Text , StyleSheet, TouchableOpacity, Image} from "react-native";
+import { View, Text , StyleSheet, TouchableOpacity, Image, ScrollView} from "react-native";
 import { TextInput } from "react-native-paper";
 import { Alert } from "react-native";
 import InputTexComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
 import ButtonComponent from "../Components/ButtonComponent";
 import ImageHelper from "../Utils/ImageHelper";
+import LoadingOverlay from "../Components/LoadingOverlay";
 
 import AlunoModel from "../Models/AlunoModel";
 import AlunoController from "../Controller/Aluno.Controller";
@@ -19,6 +20,8 @@ export default function AlunoEditorScreen({navigation, route}){
     const [ra, setRa] = useState("");
     const [imageUri, setImageUri] = useState(null);
     const [image64, setImagem64] = useState(null);
+    const [loading, setLoading] = useState(false); 
+
 
     let alunoModel =  route.params?.aluno ?? new AlunoModel();
     
@@ -33,6 +36,7 @@ export default function AlunoEditorScreen({navigation, route}){
     )
     async function saveAluno() {        
         try {
+            setLoading(true);
 
             alunoModel.nome = nome;
             alunoModel.ra = ra;
@@ -47,6 +51,9 @@ export default function AlunoEditorScreen({navigation, route}){
         } catch (error) {
             console.log("Erro ao salvar aluno:", error.message);
             Alert.alert("Erro", "Erro ao salvar aluno: " + error.message);
+        }
+        finally{
+                  setLoading(false); 
         }
     }
 
@@ -71,32 +78,37 @@ export default function AlunoEditorScreen({navigation, route}){
 
     return (
 
-        <View>
-            <ImageComponent
-                value={imageUri}
-                onChange={(img) => setImage(img)}
-            />
-        
+        <View style={{ flex: 1 }}>
+            <ScrollView>
+                <ImageComponent
+                    value={imageUri}
+                    onChange={(img) => setImage(img)}
+                />
+            
 
-            <InputTexComponent
-                label="Nome"
-                value={nome}
-                onChangeText={setNome}
-                placeholder="Nome do aluno"
-            />
+                <InputTexComponent
+                    label="Nome"
+                    value={nome}
+                    onChangeText={setNome}
+                    placeholder="Nome do aluno"
+                />
 
-            <InputTexComponent
-                label="RA"
-                value={ra}
-                onChangeText={setRa}
-                placeholder="Registro do aluno"
-                keyboardType="numeric"
-            />
+                <InputTexComponent
+                    label="RA"
+                    value={ra}
+                    onChangeText={setRa}
+                    placeholder="Registro do aluno"
+                    keyboardType="numeric"
+                />
 
-            <ButtonComponent label="Salvar" pressFunction={saveAluno} />
+                <ButtonComponent label="Salvar" pressFunction={saveAluno} />
 
 
+
+            </ScrollView>
+                <LoadingOverlay visible={loading} message="Salvando aluno..." />
         </View>
+       
 
     )
 
