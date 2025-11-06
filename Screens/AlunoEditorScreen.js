@@ -53,7 +53,7 @@ export default function AlunoEditorScreen({navigation, route}){
             Alert.alert("Erro", "Erro ao salvar aluno: " + error.message);
         }
         finally{
-                  setLoading(false); 
+            setLoading(false); 
         }
     }
 
@@ -106,7 +106,9 @@ export default function AlunoEditorScreen({navigation, route}){
 
 
             </ScrollView>
-                <LoadingOverlay visible={loading} message="Salvando aluno..." />
+
+            <LoadingOverlay visible={loading} message="Salvando aluno..." />
+        
         </View>
        
 
