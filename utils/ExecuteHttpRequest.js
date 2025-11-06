@@ -3,7 +3,7 @@ import { API_URL } from '@env';
 
 export class ExecuteHttpRequest{
 
-    static #baseUrl = "http://:3000";
+    static #baseUrl = API_URL;
 
     static async callout(url = "", method = "GET", body = null, param = {}, headers = {}) {
         try {
