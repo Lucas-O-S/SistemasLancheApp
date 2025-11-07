@@ -1,6 +1,6 @@
 import { ExecuteHttpRequest } from "../Utils/ExecuteHttpRequest";
 import { multipartHeader } from "../Utils/HeaderHelper";
-
+import AlunoModel from "../Models/AlunoModel"
 
 export class AlunoService {
     
@@ -41,19 +41,31 @@ export class AlunoService {
         const result = await ExecuteHttpRequest.callout(
             "/aluno",
             "GET",
-            {},
+            null,
             {},
             {}
         );
 
-                
-        const resultBody = result.data; //acessa o body do resultado
+        console.log(JSON.stringify(result));
+
+        let alunosList = []
+
+        result.data.data.forEach((dataUnit) => {
+            alunosList.push(new AlunoModel(
+                dataUnit.id,
+                dataUnit.nome,
+                dataUnit.ra
+            ))
+        });
+
+        console.log(alunosList);
+
         if(result.status != "200"){
             throw new Error(resultBody.message);
             
         }
 
-        return result;
+        return alunosList;
             
 
     }

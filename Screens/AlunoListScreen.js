@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import ButtonComponent from "../Components/ButtonComponent";
 import { useFocusEffect } from "@react-navigation/native";
 import LoadingOverlay from "../Components/LoadingOverlay";
+import AlunoController from "../Controller/Aluno.Controller";
 
 export default function AlunoListScreen({ navigation }) {
   const [listaAlunos, setListaAlunos] = useState([]);
@@ -11,7 +12,7 @@ export default function AlunoListScreen({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       async function loadData() {
-        const alunos = await findAll();
+        const alunos = await AlunoController.findAll();
         setListaAlunos(alunos);
       }
       loadData();
@@ -19,19 +20,17 @@ export default function AlunoListScreen({ navigation }) {
   );
 
   async function findAll() {
+    setLoading(true);
+    
     try {
-      setLoading(true);
+      se
 
-      // Simulação de requisição (ex: GET /alunos)
-      await new Promise((resolve) => setTimeout(resolve, 1000)); 
-      return [
-        { id: 1, nome: "Lucas", ra: "123" },
-        { id: 2, nome: "Maria", ra: "456" },
-      ];
+    } 
+    catch (error) {
 
-    } catch (error) {
       console.log("Erro ao buscar alunos:", error);
       return [];
+    
     } finally {
       setLoading(false);
     }

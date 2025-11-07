@@ -26,7 +26,7 @@ export default class AlunoController {
 
         }
         catch(error){
-            console.log("Erro ao salvar aluno no controler:", error.message);
+            console.log("Erro ao salvar aluno:", error.message);
             throw new Error(error.message);
              
         }
@@ -35,11 +35,12 @@ export default class AlunoController {
 
     static async findAll(){
         try{
-
+            return await AlunoService.findAll();
         }
         catch(Erro)
         {
-
+            console.log("Erro ao buscar alunos:", error.message);
+            throw new Error(error.message);
         }
     }
 
