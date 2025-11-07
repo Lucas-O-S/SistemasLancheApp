@@ -1,5 +1,5 @@
-import { ExecuteHttpRequest } from "../Utils/ExecuteHttpRequest";
-import { multipartHeader } from "../Utils/HeaderHelper";
+import { ExecuteHttpRequest } from "../utils/ExecuteHttpRequest";
+import { multipartHeader } from "../utils/HeaderHelper";
 import AlunoModel from "../Models/AlunoModel"
 
 export class AlunoService {

@@ -1,4 +1,4 @@
-// Utils/ImageHelper.js
+// utils/ImageHelper.js
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from "expo-file-system/legacy";
 import { File } from "expo-file-system";
