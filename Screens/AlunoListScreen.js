@@ -1,12 +1,10 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import ButtonComponent from "../Components/ButtonComponent";
 import { useFocusEffect } from "@react-navigation/native";
 import LoadingOverlay from "../Components/LoadingOverlay";
 import AlunoController from "../Controller/Aluno.Controller";
 import { ListItemComponent } from "../Components/ListItemComponent";
-import { List } from "react-native-paper";
-import Component from "react-native-paper/lib/typescript/components/List/ListItem";
+import { View, Text , StyleSheet, TouchableOpacity, Image, ScrollView} from "react-native";
 
 export default function AlunoListScreen({ navigation }) {
   const [listaAlunos, setListaAlunos] = useState([]);
@@ -58,10 +56,16 @@ export default function AlunoListScreen({ navigation }) {
 
         {listaAlunos.length > 0 ? (
           listaAlunos.map((aluno) => (
-            <ListItemComponent key={aluno.id}>
-              <Text>Nome: {aluno.nome}</Text>
-              <Text>RA: {aluno.ra}</Text>
-            </ListItemComponent>
+            <ListItemComponent
+              key = {aluno.id}
+              content={() => (
+                <>
+                  <Text>Nome: {aluno.nome}</Text>
+                  <Text>RA: {aluno.ra}</Text>
+                </>)
+              }
+              editScreen={() => navigation.navigate("AlunoEditorScreen", id)}
+            /> 
           ))
         ) : (
           !loading && <Text style={{ marginTop: 20 }}>Nenhum aluno encontrado.</Text>

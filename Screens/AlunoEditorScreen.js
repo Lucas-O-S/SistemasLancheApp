@@ -23,14 +23,12 @@ export default function AlunoEditorScreen({navigation, route}){
     const [loading, setLoading] = useState(false); 
 
 
-    let alunoModel =  route.params?.aluno ?? new AlunoModel();
+    let alunoId =  route.params?.aluno ?? null;
     
     useFocusEffect(
         useCallback(()=>{
-            if(alunoModel){
-                setId(alunoModel.id);
-                setNome(alunoModel.nome);
-                setRa(alunoModel.ra);
+            if(alunoId){
+                //chamar valores
             }
         },[])
     )
