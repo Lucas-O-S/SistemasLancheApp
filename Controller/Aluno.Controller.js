@@ -44,6 +44,17 @@ export default class AlunoController {
         }
     }
 
+    static async findOne(id){
+        try{
+            return await AlunoService.findOne(id);
+        }
+        catch(Erro)
+        {
+            console.log("Erro ao buscar alunos:", error.message);
+            throw new Error(error.message);
+        }
+    }
+
     
 
 

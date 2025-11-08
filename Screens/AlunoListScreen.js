@@ -64,7 +64,7 @@ export default function AlunoListScreen({ navigation }) {
                   <Text>RA: {aluno.ra}</Text>
                 </>)
               }
-              editScreen={() => navigation.navigate("AlunoEditorScreen", id)}
+              editScreen={() => navigation.navigate("AlunoEditorScreen", {id : aluno.id})}
             /> 
           ))
         ) : (

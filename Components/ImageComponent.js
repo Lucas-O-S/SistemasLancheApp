@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Image, Text, Alert, StyleSheet, View } from "react-native";
 import ImageHelper from "../utils/ImageHelper";
 
 export default function ImageComponent({ value, onChange }) {
  
   const [image64, setImage64] = useState(value);
+
+  useEffect(() => {
+    if (value) {
+      setImage64(value);
+    }
+  }, [value]);
 
   async function setImage() {
     try {

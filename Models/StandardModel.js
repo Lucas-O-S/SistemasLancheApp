@@ -13,11 +13,11 @@ export default class StandardModel{
     }
     
     set id(value){
-        if (Number.isNaN(value) || Number.parseInt(value)){
+        if (Number.isNaN(value) || !Number.parseInt(value)){
             console.log("Id: " + value);
             throw new Error("Id invalido"); 
         }
 
-        this.id = value;
+        this.#id = value;
     }
 }

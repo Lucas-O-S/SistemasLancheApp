@@ -1,44 +1,85 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useState } from "react";
-import { View, Text , StyleSheet, TouchableOpacity, Image, ScrollView} from "react-native";
-import { TextInput } from "react-native-paper";
+import { useCallback, useState, useRef  } from "react";
+import { View, ScrollView} from "react-native";
 import { Alert } from "react-native";
 import InputTexComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
 import ButtonComponent from "../Components/ButtonComponent";
-import ImageHelper from "../utils/ImageHelper";
 import LoadingOverlay from "../Components/LoadingOverlay";
-
 import AlunoModel from "../Models/AlunoModel";
 import AlunoController from "../Controller/Aluno.Controller";
-
+import ImageHelper from "../utils/ImageHelper";
 
 export default function AlunoEditorScreen({navigation, route}){
 
     const [id, setId] = useState(null);
     const [nome, setNome] = useState("");
     const [ra, setRa] = useState("");
-    const [imageUri, setImageUri] = useState(null);
-    const [image64, setImagem64] = useState(null);
+    const [imagemUri, setImagemUri] = useState(null);
+    const [imagem64, setImagem64] = useState(null);
     const [loading, setLoading] = useState(false); 
 
+    let alunoId =  route.params?.id ?? null;
+    const currentImageUriRef = useRef(null);
 
-    let alunoId =  route.params?.aluno ?? null;
-    
     useFocusEffect(
         useCallback(()=>{
-            if(alunoId){
-                //chamar valores
+            setLoading(true);
+
+            console.log("id = " + alunoId)
+
+            async function fetchData(id) {
+                if(id){
+                    try{
+                        
+
+                        const aluno = await AlunoController.findOne(alunoId);
+                        
+                        setImagem64(aluno.imagem64);
+                        
+                        const newUri = await ImageHelper.convertBase64ToUri(aluno.imagem64);
+                        currentImageUriRef.current = newUri;
+                        setImagemUri(newUri);
+
+                        setNome(aluno.nome);
+                        setId(alunoId);
+                        setRa(aluno.ra);
+
+                    }
+                    catch(Error){
+                        console.log(Error.message);
+                    }
+                    finally{
+                        setLoading(false);
+
+                    }
+
+                }
             }
-        },[])
+
+            fetchData(alunoId);
+            return () => {
+                if (currentImageUriRef.current) {
+                    ImageHelper.deleteUri(currentImageUriRef.current);
+                    currentImageUriRef.current = null;
+                }
+            };
+
+        },[alunoId])
     )
+
+
+
     async function saveAluno() {        
         try {
             setLoading(true);
 
+            const alunoModel = new AlunoModel();
+
+            if(alunoId) alunoModel.id = alunoId; 
             alunoModel.nome = nome;
             alunoModel.ra = ra;
-            alunoModel.imagemFile = await ImageHelper.convertUriToFile(imageUri);
+            alunoModel.imagemFile = await ImageHelper.convertUriToFile(imagemUri);
             
             await AlunoController.saveAluno(alunoModel);
 
@@ -57,9 +98,13 @@ export default function AlunoEditorScreen({navigation, route}){
 
     async function setImage(img) {
         try{
-            
-            setImageUri(img.uri);
-            setImagem64(img.base64)                    
+            if (currentImageUriRef.current) {
+                await ImageHelper.deleteUri(currentImageUriRef.current);
+            }
+            setImagemUri(img.uri);
+            setImagem64(img.base64) 
+            currentImageUriRef.current = img.uri;
+                   
 
         }
         catch(error){
@@ -79,7 +124,7 @@ export default function AlunoEditorScreen({navigation, route}){
         <View style={{ flex: 1 }}>
             <ScrollView>
                 <ImageComponent
-                    value={imageUri}
+                    value={imagemUri}
                     onChange={(img) => setImage(img)}
                 />
             

@@ -1,13 +1,36 @@
 import { ExecuteHttpRequest } from "../utils/ExecuteHttpRequest";
 import { multipartHeader } from "../utils/HeaderHelper";
 import AlunoModel from "../Models/AlunoModel"
+import ImageHelper from "../utils/ImageHelper";
 
 export class AlunoService {
     
 
 
-    static async update(alunoModel, id) {
-        //update
+    static async update(alunoWrapper, id) {
+        console.log("entrou em update")
+    
+        const headers = {
+            ...multipartHeader
+        };
+
+        const result = await ExecuteHttpRequest.callout(
+            "/aluno/"+id,
+            "PUT",
+            alunoWrapper,
+            {},
+            headers 
+        );
+
+        console.log(JSON.stringify(result))
+        
+        const resultBody = result.data; //acessa o body do resultado
+        if(result.status != "200"){
+            throw new Error(resultBody.message);
+            
+        }
+
+        return result;
     }
 
     static async create(alunoWrapper){
@@ -68,6 +91,30 @@ export class AlunoService {
         return alunosList;
             
 
+    }
+
+    static async findOne(id){
+        console.log("Entrou em find one");
+
+        const result = await ExecuteHttpRequest.callout(
+            "/aluno/"+id,
+            "GET",
+            null,
+            {},
+            {}
+        );
+
+        console.log(JSON.stringify(result));
+
+        const dataUnit = result.data.dataUnit;
+        
+        return new AlunoModel(
+                dataUnit.id,
+                dataUnit.nome,
+                dataUnit.ra,
+                ImageHelper.convertByteToBase64(dataUnit.imagem),
+                ImageHelper.convertByteToFile(dataUnit.imagem)
+            );
     }
 
 } 
