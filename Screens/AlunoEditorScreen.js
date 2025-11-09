@@ -63,12 +63,15 @@ export default function AlunoEditorScreen({navigation, route}){
         try {
             setLoading(true);
 
-            const alunoModel = new AlunoModel();
+            const imagemFile = await ImageHelper.convertBase64ToFile(imagem64)
 
-            if(alunoId) alunoModel.id = alunoId; 
-            alunoModel.nome = nome;
-            alunoModel.ra = ra;
-            alunoModel.imagemFile = await ImageHelper.convertUriToFile(imagemUri);
+            const alunoModel = new AlunoModel({
+                id : id,
+                nome : nome,
+                ra : ra,
+                imagemFile : imagemFile
+
+            });
             
             await AlunoController.saveAluno(alunoModel);
 
@@ -76,13 +79,27 @@ export default function AlunoEditorScreen({navigation, route}){
 
 
             navigation.goBack();
-        } catch (error) {
-            console.log("Erro ao salvar aluno:", error.message);
-            Alert.alert("Erro", "Erro ao salvar aluno: " + error.message);
+        } catch (Error) {
+            console.log("Erro ao salvar aluno:", Error.message);
+            Alert.alert("Erro", "Erro ao salvar aluno: " + Error.message);
         }
         finally{
             setLoading(false); 
         }
+    }
+
+    async function setImage(img) {
+        try{
+            
+            setImagemUri(img.uri);
+            setImagem64(img.base64)                    
+
+        }
+        catch(error){
+            console.log("Erro ao selecionar imagem: " + error.message);
+            Alert.alert("Erro ao selecionar imagem: " + error.message);
+        }
+
     }
 
 

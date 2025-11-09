@@ -46,7 +46,7 @@ export class AlunoService {
             headers:headers 
         });
         
-        const resultBody = result.data; //acessa o body do resultado
+        const resultBody = result.data; 
         if(result.status != "201"){
             throw new Error(resultBody.message);
             
@@ -69,11 +69,11 @@ export class AlunoService {
         let alunosList = []
 
         result.data.data.forEach((dataUnit) => {
-            alunosList.push(new AlunoModel(
-                dataUnit.id,
-                dataUnit.nome,
-                dataUnit.ra
-            ))
+            alunosList.push(new AlunoModel({
+                id : dataUnit.id,
+                nome: dataUnit.nome,
+                ra : dataUnit.ra
+            }))
         });
 
         console.log(alunosList);
@@ -104,13 +104,12 @@ export class AlunoService {
         }
         const dataUnit = result.data.dataUnit;
         
-        return new AlunoModel(
-            dataUnit.id,
-            dataUnit.nome,
-            dataUnit.ra,
-            ImageHelper.convertByteToBase64(dataUnit.imagem),
-            ImageHelper.convertByteToFile(dataUnit.imagem)
-        );
+        return new AlunoModel({
+            id : dataUnit.id,
+            nome : dataUnit.nome,
+            ra : dataUnit.ra,
+            imagem64 : ImageHelper.convertByteToBase64(dataUnit.imagem),
+        });
     }
     static async delete(id){
         console.log("Entrou em delete");

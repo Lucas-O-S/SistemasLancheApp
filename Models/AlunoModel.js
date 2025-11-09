@@ -7,7 +7,7 @@ export default class AlunoModel extends StandardModel {
     #imagem64;
     #imagemFile;
 
-    constructor(id = null, nome = "", ra = "", imagem64 = "", imagemFile = null) {
+    constructor({id = null, nome = "", ra = "", imagem64 = "", imagemFile = null}) {
         super(id);
         this.#nome = nome;
         this.#ra = ra;

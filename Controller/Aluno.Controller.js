@@ -8,8 +8,6 @@ export default class AlunoController {
 
     static async saveAluno(alunoModel){
         try{
-            let result;
-
             console.log("nome do aluno: " + alunoModel.nome)
 
             const request = AlunoWrapper(alunoModel);
@@ -17,10 +15,10 @@ export default class AlunoController {
             console.log(request);
             
             if(alunoModel.id){
-                result = await AlunoService.update(request, alunoModel.id);
+                await AlunoService.update(request, alunoModel.id);
             }        
             else{
-                result = await AlunoService.create(request);
+                await AlunoService.create(request);
             }
 
 
