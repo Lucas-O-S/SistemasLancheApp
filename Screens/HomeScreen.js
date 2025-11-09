@@ -14,6 +14,11 @@ export default function HomeScreen({ navigation }) {
         pressFunction={() => navigation.navigate("AlunoListScreen")}
       />      
 
+      <ButtonComponent
+        label="Formulario de Lanche"
+        pressFunction={() => navigation.navigate("PedirLancheScreen")}
+      />      
+
     </View>
 
   );

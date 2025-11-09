@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './Screens/HomeScreen';
 import AlunoEditorScreen from './Screens/AlunoEditorScreen';
 import AlunoListScreen from './Screens/AlunoListScreen';
+import PedirLancheScreen from './Screens/PedirLancheScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="AlunoEditorScreen" component={AlunoEditorScreen} />
         <Stack.Screen name="AlunoListScreen" component={AlunoListScreen} />
+        <Stack.Screen name="PedirLancheScreen" component={PedirLancheScreen} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

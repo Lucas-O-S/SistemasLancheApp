@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 
-export default function InputTexComponent({ 
+export default function InputTextComponent({ 
   label, 
   value, 
   onChangeText, 

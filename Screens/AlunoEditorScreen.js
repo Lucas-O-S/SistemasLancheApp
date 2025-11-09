@@ -2,7 +2,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState, useRef  } from "react";
 import { View, ScrollView} from "react-native";
 import { Alert } from "react-native";
-import InputTexComponent from "../Components/InputTextComponent";
+import InputTextComponent from "../Components/InputTextComponent";
 import ImageComponent from "../Components/ImageComponent";
 import ButtonComponent from "../Components/ButtonComponent";
 import LoadingOverlay from "../Components/LoadingOverlay";
@@ -113,14 +113,14 @@ export default function AlunoEditorScreen({navigation, route}){
                 />
             
 
-                <InputTexComponent
+                <InputTextComponent
                     label="Nome"
                     value={nome}
                     onChangeText={setNome}
                     placeholder="Nome do aluno"
                 />
 
-                <InputTexComponent
+                <InputTextComponent
                     label="RA"
                     value={ra}
                     onChangeText={setRa}

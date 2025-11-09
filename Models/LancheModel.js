@@ -3,7 +3,7 @@ export default class LancheModel {
     #alunoId;
     #entregue;
 
-    constructor(id = null, dataLiberacao = "", alunoId = null, entregue = false) {
+    constructor({id = null, dataLiberacao = "", alunoId = null, entregue = false}) {
         super(id);
         this.dataLiberacao = dataLiberacao;
         this.alunoId = alunoId;
