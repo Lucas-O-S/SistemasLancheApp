@@ -12,30 +12,41 @@ export default function AlunoListScreen({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
+      
+      let timeout;
+
       async function loadData() {
-        const alunos = await AlunoController.findAll();
-        setListaAlunos(alunos);
+        await findAll();
+        timeout = setTimeout(loadData, 60000);
       }
+
       loadData();
+
+      return () => {
+        clearTimeout(timeout);
+      };
+
     }, [])
   );
 
   async function findAll() {
-    setLoading(true);
     
     try {
-      se
-
+        setLoading(true);
+        const alunos = await AlunoController.findAll();
+        setListaAlunos(alunos);
     } 
     catch (error) {
 
       console.log("Erro ao buscar alunos:", error);
-      return [];
+
     
     } finally {
       setLoading(false);
     }
   }
+
+ 
 
   return (
     <View style={{ flex: 1 }}>
@@ -64,7 +75,8 @@ export default function AlunoListScreen({ navigation }) {
                   <Text>RA: {aluno.ra}</Text>
                 </>)
               }
-              editScreen={() => navigation.navigate("AlunoEditorScreen", {id : aluno.id})}
+              editFunction={() => navigation.navigate("AlunoEditorScreen", {id : aluno.id})}
+              deleteFunction={() => AlunoController.delete(aluno.id)}
             /> 
           ))
         ) : (

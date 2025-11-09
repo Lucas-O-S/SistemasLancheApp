@@ -84,7 +84,7 @@ export class AlunoService {
         console.log(alunosList);
 
         if(result.status != "200"){
-            throw new Error(resultBody.message);
+            throw new Error(result.data.message);
             
         }
 
@@ -106,15 +106,37 @@ export class AlunoService {
 
         console.log(JSON.stringify(result));
 
+        if(result.status != "200"){
+            throw new Error(result.data.message);
+            
+        }
         const dataUnit = result.data.dataUnit;
         
         return new AlunoModel(
-                dataUnit.id,
-                dataUnit.nome,
-                dataUnit.ra,
-                ImageHelper.convertByteToBase64(dataUnit.imagem),
-                ImageHelper.convertByteToFile(dataUnit.imagem)
-            );
+            dataUnit.id,
+            dataUnit.nome,
+            dataUnit.ra,
+            ImageHelper.convertByteToBase64(dataUnit.imagem),
+            ImageHelper.convertByteToFile(dataUnit.imagem)
+        );
+    }
+    static async delete(id){
+        console.log("Entrou em delete");
+
+        const result = await ExecuteHttpRequest.callout(
+            "/aluno/"+id,
+            "DELETE",
+            null,
+            {},
+            {}
+        );
+
+        console.log(JSON.stringify(result));
+
+        if(result.status != "200"){
+            throw new Error(result.data.message);
+            
+        }
     }
 
 } 

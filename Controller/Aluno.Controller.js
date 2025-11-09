@@ -25,9 +25,9 @@ export default class AlunoController {
 
 
         }
-        catch(error){
-            console.log("Erro ao salvar aluno:", error.message);
-            throw new Error(error.message);
+        catch(Error){
+            console.log("Erro ao salvar aluno:", Error.message);
+            throw new Error(Error.message);
              
         }
 
@@ -39,8 +39,8 @@ export default class AlunoController {
         }
         catch(Erro)
         {
-            console.log("Erro ao buscar alunos:", error.message);
-            throw new Error(error.message);
+            console.log("Erro ao buscar alunos:", Error.message);
+            throw new Error(Error.message);
         }
     }
 
@@ -50,8 +50,19 @@ export default class AlunoController {
         }
         catch(Erro)
         {
-            console.log("Erro ao buscar alunos:", error.message);
-            throw new Error(error.message);
+            console.log("Erro ao buscar alunos:", Error.message);
+            throw new Error(Error.message);
+        }
+    }
+
+    static async delete(id){
+        try{
+            await AlunoService.delete(id);
+        }
+        catch(Erro)
+        {
+            console.log("Erro ao deletar alunos:", Error.message);
+            throw new Error(Error.message);
         }
     }
 
