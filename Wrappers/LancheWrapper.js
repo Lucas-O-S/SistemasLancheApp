@@ -1,8 +1,8 @@
-export const AlunoWrapper = (alunoModel) => { 
+export const AlunoWrapper = (lancheModel) => { 
     return {
         
-        "dataLiberacao": "1000-01-01",
-        "alunoId": 1
+        "dataLiberacao": lancheModel.dataLiberacao,
+        "alunoId": lancheModel.alunoId
 
     };
 };
