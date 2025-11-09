@@ -43,6 +43,17 @@ export default class ImageHelper {
 
   }
 
+  static convertBase64ToFile(base64String) {
+
+    return {
+      uri: base64String,     
+      name: "file.jpg",
+      type: "image/jpeg"
+    };
+
+  }
+
+
   static async convertUriToBase64(uri){
 
     const base64 = await FileSystem.readAsStringAsync(uri, {
