@@ -20,26 +20,21 @@ export default function AlunoEditorScreen({navigation, route}){
     const [loading, setLoading] = useState(false); 
 
     let alunoId =  route.params?.id ?? null;
-    const currentImageUriRef = useRef(null);
 
     useFocusEffect(
         useCallback(()=>{
-            setLoading(true);
-
+            
             console.log("id = " + alunoId)
-
+            
             async function fetchData(id) {
-                if(id){
+                if(id != null){
+                    setLoading(true);
                     try{
                         
 
                         const aluno = await AlunoController.findOne(alunoId);
                         
                         setImagem64(aluno.imagem64);
-                        
-                        const newUri = await ImageHelper.convertBase64ToUri(aluno.imagem64);
-                        currentImageUriRef.current = newUri;
-                        setImagemUri(newUri);
 
                         setNome(aluno.nome);
                         setId(alunoId);
@@ -58,12 +53,6 @@ export default function AlunoEditorScreen({navigation, route}){
             }
 
             fetchData(alunoId);
-            return () => {
-                if (currentImageUriRef.current) {
-                    ImageHelper.deleteUri(currentImageUriRef.current);
-                    currentImageUriRef.current = null;
-                }
-            };
 
         },[alunoId])
     )
@@ -96,35 +85,13 @@ export default function AlunoEditorScreen({navigation, route}){
         }
     }
 
-    async function setImage(img) {
-        try{
-            if (currentImageUriRef.current) {
-                await ImageHelper.deleteUri(currentImageUriRef.current);
-            }
-            setImagemUri(img.uri);
-            setImagem64(img.base64) 
-            currentImageUriRef.current = img.uri;
-                   
-
-        }
-        catch(error){
-            console.log("Erro ao selecionar imagem: " + error.message);
-            Alert.alert("Erro ao selecionar imagem: " + error.message);
-        }
-
-    }
-
-
-
-
-
 
     return (
 
         <View style={{ flex: 1 }}>
             <ScrollView>
                 <ImageComponent
-                    value={imagemUri}
+                    value={imagem64}
                     onChange={(img) => setImage(img)}
                 />
             
@@ -150,7 +117,7 @@ export default function AlunoEditorScreen({navigation, route}){
 
             </ScrollView>
 
-            <LoadingOverlay visible={loading} message="Salvando aluno..." />
+            <LoadingOverlay visible={loading} message="Carregando Dados..." />
         
         </View>
        

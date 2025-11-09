@@ -54,8 +54,11 @@ export default class ImageHelper {
 
   static convertByteToBase64(imagemByte){
    
+    
     const buffer = Buffer.from(imagemByte.data);    
-    return buffer.toString("base64");
+    const imgBase64 = buffer.toString("base64");
+
+    return `data:image/jpeg;base64,${imgBase64}`;
 
   }
 
@@ -69,48 +72,6 @@ export default class ImageHelper {
     }
 
 
-  }
-
-  static async convertBase64ToUri(base64){
-    
-    const fileUri = FileSystem.cacheDirectory + `${Date.now()}.jpg`;
-
-    try {
-      const cleanBase64 = base64.replace(/^data:image\/\w+;base64,/, '');
-      
-      await FileSystem.writeAsStringAsync(fileUri, cleanBase64, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-
-      return fileUri;
-    } catch (error) {
-      console.error('Erro ao converter base64 para URI:', error);
-      return null;
-    }
-  }
-
-  static async deleteUri(uri) {
-    if (!uri) return;
-    
-    try {
-      await FileSystem.deleteAsync(uri, { idempotent: true });
-      console.log('URI deletado com sucesso:', uri);
-    } catch (error) {
-      console.log('Erro ao deletar URI:', error);
-    }
-  }
-
-  static async clearTempImages() {
-    try {
-      const files = await FileSystem.readDirectoryAsync(FileSystem.cacheDirectory);
-      const tempFiles = files.filter(file => file.startsWith('temp_'));
-      
-      for (const file of tempFiles) {
-        await FileSystem.deleteAsync(FileSystem.cacheDirectory + file);
-      }
-    } catch (error) {
-      console.error('Erro ao limpar imagens temporárias:', error);
-    }
   }
 
 

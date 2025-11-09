@@ -24,7 +24,7 @@ export class AlunoService {
 
         console.log(JSON.stringify(result))
         
-        const resultBody = result.data; //acessa o body do resultado
+        const resultBody = result.data;
         if(result.status != "200"){
             throw new Error(resultBody.message);
             
