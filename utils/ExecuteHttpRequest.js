@@ -5,7 +5,7 @@ export class ExecuteHttpRequest{
 
     static #baseUrl = API_URL;
 
-    static async callout(url = "", method = "GET", body = null, param = {}, headers = {}) {
+    static async callout({url = "", method = "GET", body = null, param = {}, headers = {}}) {
         try {
 
             const requestUrl = this.#baseUrl + url;

@@ -14,13 +14,12 @@ export class AlunoService {
             ...multipartHeader
         };
 
-        const result = await ExecuteHttpRequest.callout(
-            "/aluno/"+id,
-            "PUT",
-            alunoWrapper,
-            {},
-            headers 
-        );
+        const result = await ExecuteHttpRequest.callout({
+            url:"/aluno/"+id,
+            method:"PUT",
+            body:alunoWrapper,
+            headers:headers 
+    });
 
         console.log(JSON.stringify(result))
         
@@ -40,13 +39,12 @@ export class AlunoService {
             ...multipartHeader
         };
 
-        const result = await ExecuteHttpRequest.callout(
-            "/aluno",
-            "POST",
-            alunoWrapper,
-            {},
-            headers 
-        );
+        const result = await ExecuteHttpRequest.callout({
+            url:"/aluno",
+            method:"POST",
+            body:alunoWrapper,
+            headers:headers 
+        });
         
         const resultBody = result.data; //acessa o body do resultado
         if(result.status != "201"){
@@ -61,13 +59,10 @@ export class AlunoService {
     static async findAll(){
         console.log("Entrou em find All");
 
-        const result = await ExecuteHttpRequest.callout(
-            "/aluno",
-            "GET",
-            null,
-            {},
-            {}
-        );
+        const result = await ExecuteHttpRequest.callout({
+            url:"/aluno",
+            method:"GET",
+        });
 
         console.log(JSON.stringify(result));
 
@@ -96,13 +91,10 @@ export class AlunoService {
     static async findOne(id){
         console.log("Entrou em find one");
 
-        const result = await ExecuteHttpRequest.callout(
-            "/aluno/"+id,
-            "GET",
-            null,
-            {},
-            {}
-        );
+        const result = await ExecuteHttpRequest.callout({
+            url:"/aluno/"+id,
+            method:"GET",
+    });
 
         console.log(JSON.stringify(result));
 
@@ -123,13 +115,10 @@ export class AlunoService {
     static async delete(id){
         console.log("Entrou em delete");
 
-        const result = await ExecuteHttpRequest.callout(
-            "/aluno/"+id,
-            "DELETE",
-            null,
-            {},
-            {}
-        );
+        const result = await ExecuteHttpRequest.callout({
+            url:"/aluno/"+id,
+            method:"DELETE",
+        });
 
         console.log(JSON.stringify(result));
 
