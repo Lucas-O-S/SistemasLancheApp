@@ -9,12 +9,18 @@ export default function PedirLancheScreen({navigation}){
 
     return(
         <ScrollView>
+
+
+            
+            
             <InputDateComponent
                 label={"Data de Liberação"}
                 value={date}
                 onChangeText={setDate}
                 placeholder={"Escolha um data de Liberação"}
             />
+
+            
         </ScrollView>
     )
 }

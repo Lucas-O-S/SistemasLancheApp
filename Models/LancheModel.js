@@ -1,13 +1,16 @@
 export default class LancheModel {
+    
     #dataLiberacao;
     #alunoId;
     #entregue;
+    #quantidade
 
-    constructor({id = null, dataLiberacao = "", alunoId = null, entregue = false}) {
+    constructor({id = null, dataLiberacao = "", alunoId = null, entregue = false, quantidade = 1}) {
         super(id);
         this.dataLiberacao = dataLiberacao;
         this.alunoId = alunoId;
         this.entregue = entregue;
+        this.quantidade = quantidade
     }
 
     get dataLiberacao() {
@@ -48,5 +51,20 @@ export default class LancheModel {
             throw new Error("O campo 'entregue' deve ser verdadeiro ou falso (boolean).");
         }
         this.#entregue = value;
+    }
+
+    get quantidade() {
+        return this.#quantidade;
+    }
+
+    set quantidade(value) {
+        if (value === null || isNaN(value)) {
+            throw new Error("O campo 'quantidade' deve ser é obrigatorio.");
+        }
+        if(value > 3 || value < 1){
+            throw new Error("O campo 'quantidade' deve estar 1 e 3.");
+
+        }
+        this.#quantidade = value;
     }
 }
