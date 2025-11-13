@@ -1,6 +1,6 @@
 import LancheModel from "../Models/LancheModel";
 import { ExecuteHttpRequest } from "../utils/ExecuteHttpRequest";
-import { multipartHeader } from "../utils/HeaderHelper";
+import {  jsonHeader } from "../utils/HeaderHelper";
 import ImageHelper from "../utils/ImageHelper";
 
 export class LancheService {
@@ -11,7 +11,7 @@ export class LancheService {
         console.log("entrou em update")
     
         const headers = {
-            ...multipartHeader
+            ...jsonHeader
         };
 
         const result = await ExecuteHttpRequest.callout({
@@ -36,7 +36,7 @@ export class LancheService {
         console.log("entrou em create")
     
         const headers = {
-            ...multipartHeader
+            ...jsonHeader
         };
 
         const result = await ExecuteHttpRequest.callout({

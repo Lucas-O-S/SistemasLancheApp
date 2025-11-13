@@ -4,7 +4,10 @@ export default function ButtonComponent({ pressFunction, label }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={pressFunction}>
-        <Text style={styles.label}>{label}</Text>
+        {
+          label &&
+            <Text style={styles.label}>{label}</Text>
+        }
       </TouchableOpacity>
     </View>
   );

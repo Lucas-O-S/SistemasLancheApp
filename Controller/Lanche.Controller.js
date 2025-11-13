@@ -3,7 +3,7 @@ import { LancheCreateWrapper } from "../Wrappers/LancheCreateWrapper";
 import { LancheUpdateWrapper } from "../Wrappers/LancheUpdateWrapper";
 
 export class LancheController{
-   static async saveAluno(lancheModel){
+   static async saveLanche(lancheModel){
         try{
 
             let request;

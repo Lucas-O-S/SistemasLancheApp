@@ -5,7 +5,7 @@ import CustomAlert from "./CustomAlert";
 export function ListItemComponent({ content, editFunction, deleteFunction }) {
   const [alertVisible, setAlertVisible] = useState(false);
 
-  function CallDelete() {
+  function callDelete() {
     setAlertVisible(true);
   }
 
@@ -15,9 +15,14 @@ export function ListItemComponent({ content, editFunction, deleteFunction }) {
         {content && content()}
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={CallDelete}>
+    {
+      deleteFunction && 
+
+      <TouchableOpacity onPress={callDelete}>
         <Text>Deletar</Text>
       </TouchableOpacity>
+
+    }
 
       <CustomAlert
         visible={alertVisible}
