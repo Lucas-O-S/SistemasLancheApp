@@ -3,7 +3,6 @@ import RNPickerSelect from 'react-native-picker-select';
 
 export function ComboBoxComponent({
     label,
-    value,
     onChange,
     items = [],
     placeHolder: placeholder = {label : "Escolha um valor", value: null }

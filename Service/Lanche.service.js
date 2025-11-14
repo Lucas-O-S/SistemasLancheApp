@@ -1,4 +1,6 @@
+import AlunoModel from "../Models/AlunoModel";
 import LancheModel from "../Models/LancheModel";
+import { convertStandardDateToDmy } from "../utils/DateConverter";
 import { ExecuteHttpRequest } from "../utils/ExecuteHttpRequest";
 import {  jsonHeader } from "../utils/HeaderHelper";
 import ImageHelper from "../utils/ImageHelper";
@@ -61,7 +63,7 @@ export class LancheService {
 
         const result = await ExecuteHttpRequest.callout({
             url:"/lanche",
-            method:"GET",
+            method:"GET"
         });
 
         console.log(JSON.stringify(result));
@@ -126,6 +128,75 @@ export class LancheService {
             throw new Error(result.data.message);
             
         }
+    }
+
+    
+    static async findAllByFilter(entregue = false, dataLiberacao = ""){
+        console.log("Entrou em find All by filter");
+
+        const result = await ExecuteHttpRequest.callout({
+            url:"/lanche/filtro-entregue",
+            param : {
+                FiltrarPor : entregue,
+                dataEntrega : dataLiberacao
+            },
+            method:"GET"
+        });
+
+        if(result.status != "200"){
+            throw new Error(result.data.message);
+            
+        }
+
+        console.log(JSON.stringify(result));
+
+        let lanchesList = []
+
+        result.data.data.forEach((dataUnit) => {
+            lanchesList.push(
+                new LancheModel({
+                    
+                    id : dataUnit.id,
+                    alunoId : dataUnit.alunoId,
+                    quantidade : dataUnit.quantidade,
+                    entregue : dataUnit.entregue,
+                    dataLiberacao :convertStandardDateToDmy(dataUnit.dataLiberacao),
+                    alunoModel : new AlunoModel({
+                        id : dataUnit.alunoId,
+                        nome : dataUnit.aluno.nome,
+                        ra : dataUnit.aluno.ra
+                    })
+
+                })
+
+            )
+        });
+
+        console.log(JSON.stringify(lanchesList[0]));
+
+
+
+        return lanchesList;
+            
+
+    }
+
+    static async patch(id) {
+        console.log("entrou em patch")
+
+        const result = await ExecuteHttpRequest.callout({
+            url:"/lanche/"+id,
+            method:"PATCH",
+        });
+
+        console.log(JSON.stringify(result))
+        
+        const resultBody = result.data;
+        if(result.status != "200"){
+            throw new Error(resultBody.message);
+            
+        }
+
     }
 
 } 

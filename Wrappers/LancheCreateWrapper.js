@@ -1,9 +1,9 @@
-import { dmyToStandardDate } from "../utils/DateConverter";
+import { convertDmyToStandardDate, dmyToStandardDate } from "../utils/DateConverter";
 
 export const LancheCreateWrapper = (lancheModel) => { 
     return {
         
-        "dataLiberacao": dmyToStandardDate(lancheModel.dataLiberacao),
+        "dataLiberacao": convertDmyToStandardDate(lancheModel.dataLiberacao),
         "alunoId": lancheModel.alunoId,
         "quantidade": lancheModel.quantidade
 

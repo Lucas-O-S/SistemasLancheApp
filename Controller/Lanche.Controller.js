@@ -3,7 +3,8 @@ import { LancheCreateWrapper } from "../Wrappers/LancheCreateWrapper";
 import { LancheUpdateWrapper } from "../Wrappers/LancheUpdateWrapper";
 
 export class LancheController{
-   static async saveLanche(lancheModel){
+
+    static async saveLanche(lancheModel){
         try{
 
             let request;
@@ -28,5 +29,42 @@ export class LancheController{
         }
 
     }
+   
+    static async findAllByFilter(entregue = false, dataLiberacao = ""){
+        try{
+
+            return await LancheService.findAllByFilter(entregue, dataLiberacao)
+
+
+        }
+        catch(Error){
+            console.log("Erro ao buscar lanche:", Error.message);
+            throw new Error(Error.message);
+             
+        }
+
+    }
+
+
+    static async lancheEntregue(id){
+        try{
+
+
+            await LancheService.patch(id)
+
+
+        }
+        catch(Error){
+            console.log("Erro ao salvar lanche:", Error.message);
+            throw new Error(Error.message);
+             
+        }
+
+    }
+
+
+
+
+
 
 }

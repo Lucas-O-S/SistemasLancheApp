@@ -2,7 +2,15 @@ import { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import CustomAlert from "./CustomAlert";
 
-export function ListItemComponent({ content, editFunction, deleteFunction }) {
+export function ListItemComponent({ 
+    content = null,
+    editFunction = (() => {return}),
+    deleteFunction = null,
+    confirmationMessage = "Deseja realmente excluir?",
+    confirmationMessageTitle = "Confirmar exclusão",
+    deleteButtomLabel = null
+    
+  }) {
   const [alertVisible, setAlertVisible] = useState(false);
 
   function callDelete() {
@@ -19,15 +27,17 @@ export function ListItemComponent({ content, editFunction, deleteFunction }) {
       deleteFunction && 
 
       <TouchableOpacity onPress={callDelete}>
-        <Text>Deletar</Text>
+        { deleteButtomLabel &&
+            <Text>{deleteButtomLabel}</Text>
+        }
       </TouchableOpacity>
 
     }
 
       <CustomAlert
         visible={alertVisible}
-        title="Confirmar exclusão"
-        message="Deseja realmente excluir?"
+        title={confirmationMessage}
+        message={confirmationMessageTitle}
         onCancel={() => setAlertVisible(false)}
         onConfirm={async () => {
           await deleteFunction();

@@ -1,4 +1,4 @@
-import { dmyToStandardDate } from "../utils/DateConverter";
+import {convertDmyToStandardDate } from "../utils/DateConverter";
 import StandardModel from "./StandardModel";
 
 export default class LancheModel extends StandardModel {
@@ -6,14 +6,17 @@ export default class LancheModel extends StandardModel {
     #dataLiberacao;
     #alunoId;
     #entregue;
-    #quantidade
+    #quantidade;
+    #alunoModel
 
-    constructor({id = null, dataLiberacao = "", alunoId = null, entregue = false, quantidade = 1}) {
+    constructor({id = null, dataLiberacao = "", alunoId = null, entregue = false, quantidade = 1, alunoModel = null}) {
         super(id);
         this.#dataLiberacao = dataLiberacao;
         this.#alunoId = alunoId;
         this.#entregue = entregue;
-        this.#quantidade = quantidade
+        this.#quantidade = quantidade;
+        this.#alunoModel = alunoModel;
+
     }
 
     get dataLiberacao() {
@@ -26,7 +29,7 @@ export default class LancheModel extends StandardModel {
             throw new Error("Data de liberação deve ser uma string válida.");
         }
         
-        const date = new Date(dmyToStandardDate(value));
+        const date = new Date(convertDmyToStandardDate(value));
 
         if (isNaN(date.getTime())) {
             console.log("data : " + value)
@@ -71,5 +74,15 @@ export default class LancheModel extends StandardModel {
 
         }
         this.#quantidade = value;
+    }
+
+    get alunoModel() {
+        return this.#alunoModel;
+    }
+
+    set alunoModel(value) {
+
+        this.#alunoModel = value;
+    
     }
 }

@@ -66,21 +66,37 @@ export default function AlunoListScreen({ navigation }) {
         <Text style={{ fontSize: 20, marginTop: 20 }}>Alunos Cadastrados</Text>
 
         {listaAlunos.length > 0 ? (
+          
           listaAlunos.map((aluno) => (
+           
             <ListItemComponent
-              key = {aluno.id}
-              content={() => (
-                <>
-                  <Text>Nome: {aluno.nome}</Text>
-                  <Text>RA: {aluno.ra}</Text>
-                </>)
-              }
+           
+            key = {aluno.id}
+           
+            content={() => (
+           
+            <>
+        
+              <Text>Nome: {aluno.nome}</Text>
+              <Text>RA: {aluno.ra}</Text>
+           
+            </>
+            
+          )}
               editFunction={() => navigation.navigate("AlunoEditorScreen", {id : aluno.id})}
+              
               deleteFunction={() => AlunoController.delete(aluno.id)}
+            
+              deleteButtomLabel={"Deletar"}
+
             /> 
+          
           ))
         ) : (
+
+          
           !loading && <Text style={{ marginTop: 20 }}>Nenhum aluno encontrado.</Text>
+        
         )}
       </ScrollView>
 

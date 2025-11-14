@@ -9,7 +9,6 @@ import LoadingOverlay from "../Components/LoadingOverlay";
 import ButtonComponent from "../Components/ButtonComponent";
 import LancheModel from "../Models/LancheModel";
 import { LancheController } from "../Controller/Lanche.Controller";
-import { launchCamera } from "react-native-image-picker";
 
 
 export default function PedirLancheScreen({navigation}){
@@ -43,12 +42,16 @@ export default function PedirLancheScreen({navigation}){
             
             let tempList = [];
 
-            (await alunosList).forEach((aluno) => {
+            alunosList.forEach((aluno) => {
+            
                 tempList.push({
                     label : aluno.ra,
                     value : aluno.id
+            
                 })
+            
             })
+
             setRaList(tempList);
 
         }
@@ -66,13 +69,14 @@ export default function PedirLancheScreen({navigation}){
     async function savelLanche() {
         try{
             setLoading(false)
+            
             const lancheModel = new LancheModel({});
+            
             lancheModel.alunoId = alunoId;
+            
             lancheModel.quantidade = quantidade;
-            console.log("teste ")
+                        
             lancheModel.dataLiberacao = date;
-
-            console.log(JSON.stringify(lancheModel));
             
             await LancheController.saveLanche(lancheModel)
         
@@ -99,7 +103,6 @@ export default function PedirLancheScreen({navigation}){
                     label={"RA do Aluno"}
                     placeHolder={{label: "Escolha o RA do Aluno", value: null}}
                     onChange={(setAlunoId)}
-                    value={alunoId}
                     items={raList}
                 />
 

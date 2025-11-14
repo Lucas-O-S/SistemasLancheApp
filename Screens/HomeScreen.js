@@ -19,6 +19,16 @@ export default function HomeScreen({ navigation }) {
         pressFunction={() => navigation.navigate("PedirLancheScreen")}
       />      
 
+      <ButtonComponent
+        label="Lanches Não Entregues"
+        pressFunction={() => navigation.navigate("ListaLancheNaoEntregueScreen")}
+      />      
+
+      <ButtonComponent
+        label="Lanches Entregues"
+        pressFunction={() => navigation.navigate("ListaLancheEntregueScreen")}
+      />      
+
     </View>
 
   );
